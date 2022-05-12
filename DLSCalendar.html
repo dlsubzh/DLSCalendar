@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>GAS Client Example</title>
+
+</head>
+
+<body>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+
+integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+
+crossorigin="anonymous"></script>
+
+<script>
+
+const endpoint = "https://script.google.com/macros/s/AKfycbysR36NvQvF2T2CYUM1ZmMwvtIeLn7wZZpLu8S7NLYMdLDkBLp--LIqkNrvPvkaYODZLQ/exec";
+
+
+
+function zeroPadding(num, len){
+
+return ( Array(len).join('0') + num ).slice( -len );
+
+}
+
+
+
+function createDateString(dateObject){
+
+let yearString = dateObject.getFullYear().toString();
+
+
+
+// Tag
+
+let dNum = zeroPadding(dateObject.getDate(), 2);
+
+let dateString = dNum.toString();
+
+
+
+// Monat
+
+let monthNo = dateObject.getMonth() + 1;
+
+let moNum = zeroPadding(monthNo, 2);
+
+let monthString = moNum.toString();
+
+
+
+// Stunde
+
+let hNum = zeroPadding(dateObject.getHours(), 2);
+
+let hourString = hNum.toString();
+
+
+
+// Minute
+
+let miNum = zeroPadding(dateObject.getMinutes(), 2);
+
+let minutesString = miNum.toString();
+
+
+
+let fullString = dateString + '/' + monthString + '/' + yearString + ' ' + hourString + ':' + minutesString;
+
+return fullString
+
+}
+
+
+
+function createTable(){
+
+$.ajax({
+
+type: 'GET',
+
+url: endpoint,
+
+dataType: 'json',
+
+success: out => {
+
+//console.log(out);
+
+
+
+let calendarHtml = '';
+
+
+
+calendarHtml += '<h1>Agenda</h1>';
+
+calendarHtml += '<table width=100% style="border:none;" bgcolor="#191970">';
+
+calendarHtml += '<tr style="color:#ffffff"><th>Veranstaltung</th><th>Startdatum</th><th>Enddatum</th></tr>';
+
+
+
+out.forEach( el => {
+
+// Durch "Date()" wird die ISO-Zeitstring in Zeit-Objekt umgewandelt. Die Basis der Zeit wird auch (UTC) -> (CET/CEST) geändert.
+
+// Es gibt weitere Methods wie getMonth, getDay, getDate, getHours, getMinutes usw., um die Zeitangabe besser darzustellen.
+
+let st = new Date(el.startTime);
+
+let ed = new Date(el.endTime);
+
+
+
+let stString = createDateString(st);
+
+let edString = createDateString(ed);
+
+
+
+calendarHtml += '<tr bgcolor="#ffdead"><td>' + el.eventTitle + '</td>';
+
+calendarHtml += '<td>' + stString + '</td>';
+
+calendarHtml += '<td>' + edString + '</td></tr>';
+
+})
+
+
+
+calendarHtml += '</table>';
+
+
+
+document.querySelector('#calendar').innerHTML = calendarHtml;
+
+
+
+}
+
+});
+
+}
+
+
+
+// Tabelle wird einmal am Tag (1mal in 86400000 ms) erneuert
+
+let intervalID = setInterval(createTable(), 86400000)
+
+
+
+</script>
+
+<div id="calendar" style="background:#ffe4c4"></div>
+
+</body>
+
+</html>
