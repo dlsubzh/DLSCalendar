@@ -1,9 +1,36 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>GAS Client Example</title>
+    <link rel="stylesheet"
+             href="https://fonts.googleapis.com/css?family=Montserrat|fire-animation|Montserrat:200">
+       <style>
+         body {
+           font-family: 'Montserrat';
+           font-size: 24px;
+
+         }
+         .eventName {
+           font-family: 'Montserrat';
+           color: #1f3c90;
+
+         }
+         .time {
+           font-family: 'Montserrat';
+           color: #1f3c90;
+           font-weight: 200;
+         }
+
+         table, th, td {
+           border: 10px solid white;
+           border-collapse: collapse;
+         }
+         th, td {
+          background-color: rgba(0, 0, 0, 0);
+        }
+
+       </style>
 </head>
 <body>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -17,7 +44,7 @@
 }
 
     function createDateString(startDateObject, endDateObject){
-        
+
 
         // Tag
         let dNum = zeroPadding(startDateObject.getDate(), 2);
@@ -56,8 +83,8 @@
             out = out.slice(0, 12);
             let calendarHtml = '';
 
-            calendarHtml += '<h1>Agenda</h1>';
-            calendarHtml += '<table width=100% style="border:none;" bgcolor="#191970">';
+          //darHtml += '<h1>Agenda</h1>';
+            calendarHtml += '<table width=100% style="border:none;" bgcolor="#0028a5">';
             calendarHtml += '<tr style="color:#ffffff"><th>Veranstaltung</th><th>Veranstaltungszeit</th></tr>';
 
             out.forEach( el => {
@@ -69,27 +96,27 @@
                 let timeString = createDateString(st, ed);
 
                 if (el.description.indexOf('bgd-red') !== -1 ){
-                    calendarHtml += '<tr bgcolor="#ff6347"><td>' + el.eventTitle + '</td>';
+                    calendarHtml += '<tr bgcolor="#f96a58"><td>' + el.eventTitle + '</td>';
                     calendarHtml += '<td>' + timeString + '</td></tr>';
                 } else {
-                    calendarHtml += '<tr bgcolor="#ffdead"><td>' + el.eventTitle + '</td>';
+                    calendarHtml += '<tr bgcolor="#f1f5ff"><td>' + el.eventTitle + '</td>';
                     calendarHtml += '<td>' + timeString + '</td></tr>';
                 }
 
             })
-            
+
             calendarHtml += '</table>';
 
             document.querySelector('#calendar').innerHTML = calendarHtml;
-            
+
         }
         });
     }
 
-    // Tabelle wird einmal am Tag (1mal in 86400000 ms) erneuert 
+    // Tabelle wird einmal am Tag (1mal in 86400000 ms) erneuert
     let intervalID = setInterval(createTable(), 86400000)
-    
+
 </script>
-<div id="calendar" style="background:#ffe4c4"></div>
+<div id="calendar" style="background:#f1f5ff"></div>
 </body>
 </html>
