@@ -1,195 +1,95 @@
 
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
+    <meta charset="UTF-8">
+    <title>GAS Client Example</title>
+</head>
+<body>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<script>
+    const endpoint = "https://script.google.com/macros/s/AKfycbzk4QHeGh9K_9tNVgo4y9JStAU60rvceoukk1SGMP1axOQVauhBv6PPjhcI8wA2jeS_/exec";
 
-<meta charset="UTF-8">
+    function zeroPadding(num, len){
+	return ( Array(len).join('0') + num ).slice( -len );
+}
 
-<title>GAS Client Example</title>
+    function createDateString(startDateObject, endDateObject){
+        
 
-<link rel="stylesheet"
-         href="https://fonts.googleapis.com/css?family=Montserrat|fire-animation|Montserrat:200">
-   <style>
-     body {
-       font-family: 'Montserrat';
-       font-size: 24px;
+        // Tag
+        let dNum = zeroPadding(startDateObject.getDate(), 2);
+        let dateString = dNum.toString();
 
-     }
-     .eventName {
-       font-family: 'Montserrat';
-       color: #1f3c90;
+        // Monat
+        let monthNo = startDateObject.getMonth() + 1;
+        let moNum = zeroPadding(monthNo, 2);
+        let monthString = moNum.toString();
 
-     }
-     .time {
-       font-family: 'Montserrat';
-       color: #1f3c90;
-       font-weight: 200;
-     }
+        // Stunde
+        let hNumStart = zeroPadding(startDateObject.getHours(), 2);
+        let startHourString = hNumStart.toString();
 
-     table, th, td {
-       border: 10px solid white;
-       border-collapse: collapse;
-     }
-     th, td {
-      background-color: rgba(0, 0, 0, 0);
+        let hNumEnd = zeroPadding(endDateObject.getHours(), 2);
+        let endHourString = hNumEnd.toString();
+
+        // Minute
+        let miNumStart = zeroPadding(startDateObject.getMinutes(), 2);
+        let startMinutesString = miNumStart.toString();
+
+        let miNumEnd = zeroPadding(endDateObject.getMinutes(), 2);
+        let endMinutesString = miNumEnd.toString();
+
+        let fullString = dateString + '/' + monthString + ' ' + startHourString + ':' + startMinutesString + ' – ' + endHourString + ':' + endMinutesString;
+        return fullString
     }
 
-   </style>
-
-</head>
-
-<body>
-
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"
-
-integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-
-crossorigin="anonymous"></script>
-
-<script>
-
-const endpoint = "https://script.google.com/macros/s/AKfycbysR36NvQvF2T2CYUM1ZmMwvtIeLn7wZZpLu8S7NLYMdLDkBLp--LIqkNrvPvkaYODZLQ/exec";
-
-
-
-function zeroPadding(num, len){
-
-return ( Array(len).join('0') + num ).slice( -len );
-
-}
-
-
-
-function createDateString(dateObject){
-
-let yearString = dateObject.getFullYear().toString();
-
-
-
-// Tag
-
-let dNum = zeroPadding(dateObject.getDate(), 2);
-
-let dateString = dNum.toString();
-
-
-
-// Monat
-
-let monthNo = dateObject.getMonth() + 1;
-
-let moNum = zeroPadding(monthNo, 2);
-
-let monthString = moNum.toString();
-
-
-
-// Stunde
-
-let hNum = zeroPadding(dateObject.getHours(), 2);
-
-let hourString = hNum.toString();
-
-
-
-// Minute
-
-let miNum = zeroPadding(dateObject.getMinutes(), 2);
-
-let minutesString = miNum.toString();
-
-
-
-let fullString = dateString + '.'  + monthString + '&emsp;' + hourString + ':' + minutesString;
-
-return fullString
-
-}
-
-
-
-function createTable(){
-
-$.ajax({
-
-type: 'GET',
-
-url: endpoint,
-
-dataType: 'json',
-
-success: out => {
-
-//console.log(out);
-
-
-
-let calendarHtml = '';
-
-
-
-calendarHtml += '<table width=100% bgcolor="#ffffff">';
-
-// calendarHtml += '<tr style="color:#ffffff"><th>Veranstaltung</th><th>Startdatum</th><th>Enddatum</th></tr>';
-
-
-
-out.forEach( el => {
-
-// Durch "Date()" wird die ISO-Zeitstring in Zeit-Objekt umgewandelt. Die Basis der Zeit wird auch (UTC) -> (CET/CEST) geändert.
-
-// Es gibt weitere Methods wie getMonth, getDay, getDate, getHours, getMinutes usw., um die Zeitangabe besser darzustellen.
-
-let st = new Date(el.startTime);
-
-let ed = new Date(el.endTime);
-
-
-
-let stString = createDateString(st);
-
-let edString = createDateString(ed);
-
-
-
-calendarHtml += '<tr bgcolor="#f1f5ff"><td class="eventName">' + el.eventTitle + '</td>';
-
-calendarHtml += '<td class="time">' + stString + '</td>';
-
-calendarHtml += '<td class="time">' + edString + '</td></tr>';
-
-})
-
-
-
-calendarHtml += '</table>';
-
-
-
-document.querySelector('#calendar').innerHTML = calendarHtml;
-
-
-
-}
-
-});
-
-}
-
-
-
-// Tabelle wird einmal am Tag (1mal in 86400000 ms) erneuert
-
-let intervalID = setInterval(createTable(), 86400000)
-
-
-
+    function createTable(){
+        $.ajax({
+        type: 'GET',
+        url: endpoint,
+        dataType: 'json',
+        success: out => {
+            //console.log(out);
+            out = out.slice(0, 12);
+            let calendarHtml = '';
+
+            calendarHtml += '<h1>Agenda</h1>';
+            calendarHtml += '<table width=100% style="border:none;" bgcolor="#191970">';
+            calendarHtml += '<tr style="color:#ffffff"><th>Veranstaltung</th><th>Veranstaltungszeit</th></tr>';
+
+            out.forEach( el => {
+                // Durch "Date()" wird die ISO-Zeitstring in Zeit-Objekt umgewandelt. Die Basis der Zeit wird auch (UTC) -> (CET/CEST) geändert.
+                // Es gibt weitere Methods wie getMonth, getDay, getDate, getHours, getMinutes usw., um die Zeitangabe besser darzustellen.
+                let st = new Date(el.startTime);
+                let ed = new Date(el.endTime);
+
+                let timeString = createDateString(st, ed);
+
+                if (el.description.indexOf('bgd-red') !== -1 ){
+                    calendarHtml += '<tr bgcolor="#ff6347"><td>' + el.eventTitle + '</td>';
+                    calendarHtml += '<td>' + timeString + '</td></tr>';
+                } else {
+                    calendarHtml += '<tr bgcolor="#ffdead"><td>' + el.eventTitle + '</td>';
+                    calendarHtml += '<td>' + timeString + '</td></tr>';
+                }
+
+            })
+            
+            calendarHtml += '</table>';
+
+            document.querySelector('#calendar').innerHTML = calendarHtml;
+            
+        }
+        });
+    }
+
+    // Tabelle wird einmal am Tag (1mal in 86400000 ms) erneuert 
+    let intervalID = setInterval(createTable(), 86400000)
+    
 </script>
-
-<div id="calendar" style="background-color:rgba(0, 0, 0, 0);"></div>
-
+<div id="calendar" style="background:#ffe4c4"></div>
 </body>
-
 </html>
