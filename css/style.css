@@ -1,0 +1,23 @@
+body {
+    font-family: 'Montserrat';
+    font-size: 24px;
+    background-color: #f1f5ff;
+}
+.eventName {
+    font-family: 'Montserrat';
+    color: #1f3c90;
+}
+.time {
+    font-family: 'Montserrat';
+    color: #1f3c90;
+    font-weight: 200;
+    width: 30%;
+}
+table, th, td {
+    border: 10px solid white;
+    border-collapse: collapse;
+}
+.Veranstaltungszeit{
+  width: 90%;
+}
+  
