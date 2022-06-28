@@ -51,8 +51,8 @@ function createTable(){
             let calendarHtml = '';
 
           //darHtml += '<h1>Agenda</h1>';
-            calendarHtml += '<table width=100% style="border:none;" bgcolor="#0028a5"><colgroup><col class="Veranstaltung"><col class="Veranstaltungszeit"></colgroup>';
-            calendarHtml += '<tr style="color:#ffffff"><th scope="col">Veranstaltung</th><th scope="col">Veranstaltungszeit</th></tr>';
+            calendarHtml += '<table><colgroup><col class="Veranstaltung"><col class="Veranstaltungszeit"></colgroup>';
+            calendarHtml += '<tr><th scope="col">Veranstaltung</th><th scope="col">Veranstaltungszeit</th></tr>';
 
             out.forEach( el => {
                 // Durch "Date()" wird die ISO-Zeitstring in Zeit-Objekt umgewandelt. Die Basis der Zeit wird auch (UTC) -> (CET/CEST) geändert.
@@ -63,10 +63,10 @@ function createTable(){
                 let timeString = createDateString(st, ed);
 
                 if (el.eventTitle.indexOf('Gesamt') !== -1 ){
-                    calendarHtml += '<tr bgcolor="#f96a58"><td>' + el.eventTitle + '</td>';
+                    calendarHtml += '<tr class="warning"><td>' + el.eventTitle + '</td>';
                     calendarHtml += '<td>' + timeString + '</td></tr>';
                 } else {
-                    calendarHtml += '<tr bgcolor="#f1f5ff"><td>' + el.eventTitle + '</td>';
+                    calendarHtml += '<tr class="normal"><td>' + el.eventTitle + '</td>';
                     calendarHtml += '<td>' + timeString + '</td></tr>';
                 }
 
