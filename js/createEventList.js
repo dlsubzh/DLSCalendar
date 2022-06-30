@@ -36,7 +36,7 @@ function createDateString(startDateObject, endDateObject){
         let startWeekDayString = weekDays[startWeekDay];
         //console.log(startWeekDayString);
 
-        let fullString = startWeekDayString + dateString + '.' + monthString + '.   ' + startHourString + ':' + startMinutesString + '–' + endHourString + ':' + endMinutesString;
+        let fullString = startWeekDayString + ' ' + dateString + '.' + monthString + '.   ' + startHourString + ':' + startMinutesString + '–' + endHourString + ':' + endMinutesString;
         return fullString
 }
 
