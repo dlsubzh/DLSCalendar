@@ -31,12 +31,12 @@ function createDateString(startDateObject, endDateObject){
         let endMinutesString = miNumEnd.toString();
 
         // Wochentag
-        const weekDays = ['So.', 'Mo.', 'Di.', 'Mi.', 'Do.', 'Fr.', 'Sa.'];
+        const weekDays = ['SO', 'MO', 'DI', 'MI', 'DO', 'FR', 'SA'];
         let startWeekDay = startDateObject.getDay();
-        let startWeekDayString = '(' + weekDays[startWeekDay] + ') ';
+        let startWeekDayString = weekDays[startWeekDay];
         //console.log(startWeekDayString);
 
-        let fullString = dateString + '.' + monthString + '. ' + startWeekDayString + startHourString + ':' + startMinutesString + ' – ' + endHourString + ':' + endMinutesString;
+        let fullString = startWeekDayString + dateString + '.' + monthString + '.   ' + startHourString + ':' + startMinutesString + '–' + endHourString + ':' + endMinutesString;
         return fullString
 }
 
