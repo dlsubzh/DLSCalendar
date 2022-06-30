@@ -64,10 +64,10 @@ function createTable(){
 
                 if (el.eventTitle.indexOf('Gesamt') !== -1 ){
                     calendarHtml += '<tr class="warning"><td>' + el.eventTitle + '</td>';
-                    calendarHtml += '<td>' + timeString + '</td></tr>';
+                    calendarHtml += '<td class="time">' + timeString + '</td></tr>';
                 } else {
                     calendarHtml += '<tr class="normal"><td>' + el.eventTitle + '</td>';
-                    calendarHtml += '<td>' + timeString + '</td></tr>';
+                    calendarHtml += '<td class="time">' + timeString + '</td></tr>';
                 }
 
             })

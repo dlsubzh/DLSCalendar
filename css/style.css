@@ -10,7 +10,6 @@ table {
 table, th, td {
     border: 10px solid white;
     border-collapse: collapse;
-    text-align: center;
 }
 th {
     color: #ffffff;
@@ -23,6 +22,8 @@ th {
 }
 .Veranstaltungszeit{
   width: 40%;
-  text-align: center;
+}
+.time{
+    padding-left: 30px;
 }
   
