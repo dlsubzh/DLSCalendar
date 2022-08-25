@@ -66,7 +66,7 @@ function createTable(){
                     calendarHtml += '<tr class="warning"><td>' + el.eventTitle + '</td>';
                     calendarHtml += '<td class="time">' + timeString + '</td></tr>';
 		
-		else if (el.eventTitle.indexOf('workshop') !== -1 ){
+		}else if (el.eventTitle.indexOf('workshop') !== -1 ){
                     calendarHtml += '<tr class="workshop"><td>' + el.eventTitle + '</td>';
                     calendarHtml += '<td class="time">' + timeString + '</td></tr>';
                 
