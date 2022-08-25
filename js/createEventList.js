@@ -65,7 +65,12 @@ function createTable(){
                 if (el.eventTitle.indexOf('Gesamt') !== -1 ){
                     calendarHtml += '<tr class="warning"><td>' + el.eventTitle + '</td>';
                     calendarHtml += '<td class="time">' + timeString + '</td></tr>';
-                } else {
+		
+		else if (el.eventTitle.indexOf('workshop') !== -1 ){
+                    calendarHtml += '<tr class="workshop"><td>' + el.eventTitle + '</td>';
+                    calendarHtml += '<td class="time">' + timeString + '</td></tr>';
+                
+		} else {
                     calendarHtml += '<tr class="normal"><td>' + el.eventTitle + '</td>';
                     calendarHtml += '<td class="time">' + timeString + '</td></tr>';
                 }
