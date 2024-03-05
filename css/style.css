@@ -4,7 +4,7 @@ body {
     background-color: #f1f5ff;
 }
 table {
-    width: 100%;
+    width: 80%;
     background-color: #0028a5;
 }
 table, th, td {
@@ -24,7 +24,7 @@ th {
     background-color: #9bcfb5;
 }
 .Veranstaltungszeit{
-  width: 15%;
+  width: 20%;
 }
 .time{
     padding-left: 30px;
