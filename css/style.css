@@ -1,10 +1,10 @@
 body {
     font-family: 'Montserrat';
-    font-size: 24px;
+    font-size: 12px;
     background-color: #f1f5ff;
 }
 table {
-    width: 100%;
+    width: 50%;
     background-color: #0028a5;
 }
 table, th, td {
@@ -24,7 +24,7 @@ th {
     background-color: #9bcfb5;
 }
 .Veranstaltungszeit{
-  width: 38%;
+  width: 12%;
 }
 .time{
     padding-left: 30px;
